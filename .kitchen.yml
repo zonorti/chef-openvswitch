@@ -1,0 +1,15 @@
+---
+driver:
+  name: digitalocean
+  region: Amsterdam 2
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[chef-openvswitch::default]
+    attributes:
