@@ -7,18 +7,10 @@ bash "create integration bridge" do
 end
 
 
-#bash "testing" do
-#  #not_if("ovs-vsctl list-br | grep br-int")
-#  code <<-CODE
-#  echo #{node["network"]["interfaces"]["eth0"]["addresses"].keys[1]} >>/tmp/data
-#  CODE
-#end
-
 if node["network"]["interfaces"]["eth0"]["addresses"].keys[1] != nil
   ip = node["network"]["interfaces"]["eth0"]["addresses"].keys[1]
 
   bash "switch to bridge" do
-    not_if "ip addr show dev eth0 | grep inet"
     user "root"
     cwd "/tmp"
     code <<-EOH
@@ -31,9 +23,3 @@ if node["network"]["interfaces"]["eth0"]["addresses"].keys[1] != nil
   end
 end
 
-#route "default" do
-#  attribute "value" # see attributes section below
-#  gateway "10.0.0.20"
-#  device "br-int"
-#  action :action # see actions section below
-#end
